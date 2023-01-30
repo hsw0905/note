@@ -1,2 +1,3 @@
 # note
-memo
+
+gitbook 활용하기
