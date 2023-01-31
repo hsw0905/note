@@ -11,5 +11,5 @@
 	* [stateless](/http/stateless.md)
 	* [cookie vs session](/http/cookie_session.md)
 	* [HTTP message](/http/message.md)
-	* [HTTP method](/http/method.md)
+	* [HTTP method](/http/http_method.md)
 
