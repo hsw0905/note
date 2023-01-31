@@ -9,5 +9,6 @@
 	* [Server_Client](/http/server_client.md)
 	* [HTTP vs HTTPS](/http/http_vs_https.md)
 	* [stateless](/http/stateless.md)
-	* [cookie_session](/http/cookie_session.md)
+	* [cookie vs session](/http/cookie_session.md)
+	* [HTTP message](/http/message.md)
 
