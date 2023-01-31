@@ -1,7 +1,7 @@
 # 1주차 학습
 
 - HTTP
-	- [HTTP와 HTTPS의 차이는 무엇인가?](../http/http_vs_https.md)
+	- [HTTP와 HTTPS의 차이는 무엇인가?](/http/http_vs_https.md)
 	- 클라이언트-서버 모델이란?
 	- stateless와 stateful의 개념?
 	- 쿠키와 세션의 개념?
