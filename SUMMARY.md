@@ -12,4 +12,5 @@
 	* [cookie vs session](/http/cookie_session.md)
 	* [HTTP message](/http/message.md)
 	* [HTTP method](/http/http_method.md)
+	* [HTTP status code](/http/http_statuscode.md)
 
