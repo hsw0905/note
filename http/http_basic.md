@@ -13,3 +13,18 @@
 ## Web의 영역
 ![출처 : MDN](/http/images/web_range.png)
 
+---
+
+## OSI 7 Layer별 식별자
+### L2
+- Ethernet : NIC Card (MAC address 혹은 Physical address- 기기에 부여된 고유값)
+- LAN 카드 식별자
+
+### L3
+- Internet : IP address
+- HOST 식별자
+
+### L4
+- Port Number
+- Process 식별자
+
