@@ -1,5 +1,3 @@
-# 1주차 학습
-
 - HTTP
 	- HTTP vs HTTPS
 	- 클라이언트-서버 모델
