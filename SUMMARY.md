@@ -17,6 +17,7 @@
 	* [TCP/IP](/http/tcp_ip.md)
 	* [Socket](/http/socket.md)
 	* [URI vs URL](/http/uri_vs_url.md)
+	* [Host](/http/host.md)
 
 ## Java
 * [basic](/java/subject_1.md)
