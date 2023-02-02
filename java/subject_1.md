@@ -1,5 +1,10 @@
 # Java basic
 
-- text blocks
-- InputStream, OutputStream
-- Try-with-resources
+- HTTP client
+	- text blocks
+	- InputStream, OutputStream
+	- Try-with-resources
+---
+- HTTP server
+	- ServerSocket
+	- Blocking vs NonBlocking
