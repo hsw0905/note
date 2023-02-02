@@ -1,8 +1,8 @@
 # HTTP client
 
 - TCP/IP
-- TCP vs UDP
-- Port
+	- Port
+	- TCP vs UDP
 - Socket과 Socket API
 - URI vs URL
 - Host (IP address, Domain name, DNS)
