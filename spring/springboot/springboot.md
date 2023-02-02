@@ -24,3 +24,24 @@
 - Model: 도메인 로직
 - Controller : 입력(Request)
 - View : 표현(Response)
+
+### 관심사의 분리
+- 낮은 결합도
+- 높은 응집력
+- 모듈의 분리
+
+## Spring MVC
+- 클라이언트로부터 HTTP 요청이 온다.
+- DispatcherServlet : 모든 요청을 받는다.
+	- handler 매핑 정보를 조회한다.
+	- handler를 처리 가능한 handler 어댑터를 조회한다.
+	- 조회한 handler 어댑터에 handler를 넘긴다.
+		- handler 어댑터 : handler를 호출한다. (Controller)
+			-	Controller : 비즈니스 로직 진행 (Service -> Repository...)
+		- handler 어댑터 : ModelAndView를 반환한다.
+- DispatcherServlet : viewResolver를 호출한다.
+	- viewResolver: View를 반환한다.
+- DispatcherServlet : render(Model)를 호출한다.
+- View를 통해 (HTML) 응답한다.
+
+
