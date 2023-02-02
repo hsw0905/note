@@ -15,6 +15,8 @@
 	* [HTTP status code](/http/http_statuscode.md)
 * [HTTP client](/http/subject_2.md)
 	* [TCP/IP](/http/tcp_ip.md)
+	* [Socket](/http/socket.md)
+	* [URI vs URL](/http/uri_vs_url.md)
 
 ## Java
 * [basic](/java/subject_1.md)
