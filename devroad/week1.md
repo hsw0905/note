@@ -22,3 +22,28 @@
 - HTTP Server
 	-	Java : ServerSocket
 	- Blocking vs Non-Blocking
+
+---
+- Java HTTP Server
+	- Java HTTP Server
+	- Java NIO
+	- Java Lambda expression(람다식)
+		- Java Functional interface(함수형 인터페이스)
+
+---
+- Spring Web MVC
+	- Spring
+	- Spring boot
+	- Spring initializer
+	- Web Server vs Web Application Server(WAS)
+		-	 Tomcat
+	- MVC 아키텍처 패턴
+	- 관심사의 분리
+	- Spring MVC
+	- Java Annotation
+	- Spring Annotation
+		-	@RestController
+			-	@Controller
+			- @ResponseBody
+		- @GetMapping
+			- @RequestMapping

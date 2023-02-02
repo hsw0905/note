@@ -2,7 +2,7 @@
 
 ## Internet Protocol Suite
 - 인터넷이 연결된 컴퓨터끼리 정보를 주고 받는데 쓰는 프로토콜의 모음
-- 이들 중 TCP와 IP가 가낭 많이 쓰여 흔히 TCP/IP 라고 부른다.
+- 이들 중 TCP와 IP가 가장 많이 쓰여 흔히 TCP/IP 라고 부른다.
 
 ## IP(Internet Protocol)
 ![ip](/http/images/ip.png)
