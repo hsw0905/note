@@ -8,6 +8,7 @@
 - URI & MIME Type
 	- URI & URL & URN
 	- MIME type
+	- (HTTP - URI vs URL 부분 참고하기)
 ---
 
 - Collection Pattern
