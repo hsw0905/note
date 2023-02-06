@@ -31,6 +31,7 @@
 		1. URI로 리소스를 식별할 수 있다.
 		---
 ![출처 : https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm](/rest_api/images/elements.png)
+---
 			- 위 표의 정보는 모두 자원이 될 수 있다. (하이퍼텍스트 레퍼런스가 될 수 있는 것이라면 어느 개념이든 가능)
 		2. 표현으로 리소스를 조작한다.
 			- 표현?
@@ -49,6 +50,7 @@
 			- 하지만 현업에서는 API 명세 문서 (잘 지켜지지 않음)
 			---
 ![출처 : https://martinfowler.com/articles/richardsonMaturityModel.html](/rest_api/images/rest_step.png)
+---
 			- HTTP Message만 만들어도 레벨 2단계 가능
 			- 특정 링크를 담으면 3단계
 			- 현업에서는 2단계 레벨만 되어도 REST API로 만족한다.
