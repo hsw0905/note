@@ -6,9 +6,8 @@
 	- REST(7가지 제약 조건 위주로 정리)
 ---
 - URI & MIME Type
-	- URI & URL & URN
-	- MIME type
-	- (HTTP - URI vs URL 부분 참고하기)
+	- URI & URL & URN (HTTP client - URI vs URL 참고하기)
+	- MIME type (HTTP message 참고하기)
 ---
 
 - Collection Pattern
