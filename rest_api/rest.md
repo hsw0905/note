@@ -29,7 +29,6 @@
 	- 내용 : 구성 요소 사이의 인터페이스는 균일해야 한다. Uniform Interface를 얻기 위해서는 4가지 제약 조건이 필요하다.
 	- 필딩 제약 조건
 		1. URI로 리소스를 식별할 수 있다.
-			- 데이터 구성요소
 			![출처 : https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm](/rest_api/images/elements.png)
 			- 위 표의 정보는 모두 자원이 될 수 있다. (하이퍼텍스트 레퍼런스가 될 수 있는 것이라면 어느 개념이든 가능)
 		2. 표현으로 리소스를 조작한다.
