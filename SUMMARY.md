@@ -22,6 +22,7 @@
 
 ## Spring
 * [core](/spring/overview.md)
+	* [IoC](/spring/core/ioc.md)
 * [Spring Boot](/spring/springboot/springboot.md)
 
 ## REST API
