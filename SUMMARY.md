@@ -28,5 +28,4 @@
 * [Contents](/rest_api/subject_1.md)
 	* [API](/rest_api/api.md)
 	* [Architecture](/rest_api/architecture.md)
-	* [정보은닉 & 캡슐화](/rest_api/information_hiding.md)
 	* [REST?](/rest_api/rest.md)
