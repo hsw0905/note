@@ -56,3 +56,28 @@
 - 현업에서는 2단계 레벨만 되어도 REST API로 만족한다.
 
 
+## Collection Pattern
+
+- 리소스를 중심으로 API를 디자인 하기
+	- URI는 가능하다면 명사(리소스) 복수형 사용, 동사(리소스에 대한 작업) X
+	- 언더바(_) 보단 하이픈(-) 사용
+	- API 스펙 문서에 기록
+
+- 리소스 URI를 컬렉션/항목/컬렉션 보다 더 복잡하게 요구하지 않는 것이 좋다.
+	- 예시
+		- /customers/1/orders/99/products... (복잡)
+			- /customers/1/orders -> 고객 1의 주문 리스트를 찾은 후
+			- /orders/99/products -> 로 주문 제품 가져오기
+
+### CRUD(Create, Read, Update, Delete)
+- HTTP Method 측면에서
+	- GET -> Read
+	- POST -> Create
+	- PUT, PATCH -> Update
+	- Delete -> Delete
+
+### CQS
+- CRUD를 상태가 변하는지 여부에 따라 구분할 수 있다.
+	- Command : 상태가 변한다. (C,U,D)
+	- Query : 상태가 변하지 않는다. (R)
+		- 캐시, 분산 활용
