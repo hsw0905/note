@@ -34,7 +34,7 @@
 ## Java
 * [basic](/java/subject_1.md)
 	* [HTTP 구현](/java/basic.md)
-* [16]()
+* [16](/java/16/contents.md)
 	* [Record](/java/16/record.md)
 
 ## Spring
