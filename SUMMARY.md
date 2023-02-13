@@ -16,14 +16,33 @@
 	* [URI vs URL](/http/uri_vs_url.md)
 	* [Host](/http/host.md)
 
+## Back-end
+* [DTO]()
+	* [IPC]()
+	* [무기력한 도메인 모델]()
+	* [JavaBeans]()
+	* [DAO]()
+* [Serialization]()
+	* [마샬링]()
+	* [JSON]()
+	* [Jackson-ObjectMapper]()
+	* [@JsonProperty]()
+* [CORS]()
+	* [동일 출처 정책]()
+	* [JSONP]()
+	* [Access-Control-Allow-Origin]()
+	* [@CrossOrigin]()
+
 ## Java
 * [basic](/java/subject_1.md)
 	* [HTTP 구현](/java/basic.md)
+	* [Record]()
 
 ## Spring
 * [core](/spring/overview.md)
 	* [IoC](/spring/core/ioc.md)
 * [Spring Boot](/spring/springboot/springboot.md)
+* [ORM]()
 
 ## REST API
 * [Contents](/rest_api/subject_1.md)
