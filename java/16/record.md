@@ -9,7 +9,7 @@
 - 위와 같은 형태로 레코드 클래스를 만들 수 있다.
 - 위의 record를 동일한 기능의 클래스로 변경하면 다음과 같다.
 ```java
-	public final class Person {
+public final class Person {
 
   private final String name;
   private final Integer age;
