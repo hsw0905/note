@@ -17,11 +17,9 @@
 	* [Host](/http/host.md)
 
 ## Back-end
-* [DTO]()
-	* [IPC]()
-	* [무기력한 도메인 모델]()
-	* [JavaBeans]()
-	* [DAO]()
+* [DTO](/backend/dto.md)
+	* [IPC](/backend/ipc.md)
+	* [JavaBeans](/backend/javabeans.md)
 * [Serialization]()
 	* [마샬링]()
 	* [JSON]()
@@ -36,13 +34,14 @@
 ## Java
 * [basic](/java/subject_1.md)
 	* [HTTP 구현](/java/basic.md)
-	* [Record]()
+* [16]()
+	* [Record](/java/16/record.md)
 
 ## Spring
 * [core](/spring/overview.md)
 	* [IoC](/spring/core/ioc.md)
 * [Spring Boot](/spring/springboot/springboot.md)
-* [ORM]()
+* [ORM](/spring/orm/orm.md)
 
 ## REST API
 * [Contents](/rest_api/subject_1.md)
