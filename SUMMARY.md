@@ -23,12 +23,7 @@
 * [Serialization](/backend/serialization.md)
 	* [JSON](/backend/json.md)
 	* [Jackson-ObjectMapper](/backend/jackson.md)
-	* [@JsonProperty]()
-* [CORS]()
-	* [동일 출처 정책]()
-	* [JSONP]()
-	* [Access-Control-Allow-Origin]()
-	* [@CrossOrigin]()
+* [CORS](/backend/cors.md)
 
 ## Java
 * [basic](/java/subject_1.md)
