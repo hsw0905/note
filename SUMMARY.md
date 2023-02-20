@@ -24,6 +24,7 @@
 	* [JSON](/backend/json.md)
 	* [Jackson-ObjectMapper](/backend/jackson.md)
 * [CORS](/backend/cors.md)
+* [Layered Architecture](/backend/layered_architechture.md)
 
 ## Java
 * [basic](/java/subject_1.md)

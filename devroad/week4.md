@@ -1,0 +1,14 @@
+- Layered Architecture
+	- 관심사의 분리
+	- 응집도
+	- 결합도
+	- UUID
+---
+- Data Access
+	- DAO
+	- Java: List
+	- Java: Map
+---
+- Domain Model
+	- Repository
+	- VO
