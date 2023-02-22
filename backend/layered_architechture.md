@@ -84,6 +84,7 @@
 
 ### DAO vs Repository
 - Repository: 도메인 모델을 관리한다.
+	- 도메인 모델이 있을 때 사용
 	- JPA의 Repository는 DAO에 가깝다.
 
 ### 에릭 에반스의 4계층
@@ -95,3 +96,15 @@
 - Domain
 	- 비즈니스 로직을 갖는 객체
 	- Repository
+
+### Domain Model
+- 데이터와 행위를 가지고 있는 객체
+	- 행위 : public method (위임)
+		- 테스트하기 적합하다.
+
+### VO(Value Object)
+- 값 객체
+- id가 없다.
+	- 교환이 가능하다.
+- 변경할 수 없다.
+	- 재사용이 가능하다.
