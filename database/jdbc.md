@@ -85,3 +85,79 @@
 - 순수한 서비스 계층에 JDBC 코드 섞임
 - 트랜잭션을 위해 커넥션을 계속 파라미터로 보내줘야 함
 - 데이터 접근 계층에서 발생한 예외가 서비스 계층으로 전파 (SQL Exception)
+
+### 그리하여 위 문제를 Spring에서 해결한 방법은..
+- 각기 달랐던 트랜잭션 코드를 추상화
+	- 트랜잭션 동기화 매니저 제공
+	- 트랜잭션 매니저 -> 트랜잭션 동기화 매니저에 커넥션 보관
+	- 리포지토리는 트랜잭션 동기화 매니저에 접근하여 보관된 커넥션 사용
+	- 트랜잭션 종료 : 트랜잭션 매니저 -> 보관된 커넥션을 사용하여 close()
+	- 멀티스레드 환경에서, 쓰레드 로컬을 사용하여 커넥션 동기화 가능
+		- 커넥션 파라미터로 보내줘야 하는 문제 해결
+```java
+@RequiredArgsConstructor
+public class MemberService {
+    private final PlatformTransactionManager transactionManager;
+    private final MemberRepository memberRepository;
+
+    public void transferAccount(String fromId, String toId, int money) {
+        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+
+        try {
+            //비즈니스 로직
+            bizLogic(fromId, toId, money);
+            transactionManager.commit(status); //성공시 커밋
+        } catch (Exception e) {
+            transactionManager.rollback(status); //실패시 롤백
+            throw new IllegalStateException(e);
+        }
+
+    }
+}
+```
+
+- 트랜잭션 템플릿 제공
+	- 반복되는 패턴(try-catch-finally) 문제 해결
+	- 템플릿-콜백 패턴
+```java
+public class MemberService {
+    private final TransactionTemplate txTemplate;
+    private final MemberRepository memberRepository;
+
+    public MemberService(PlatformTransactionManager txManager, MemberRepository memberRepository) {
+        this.txTemplate = new TransactionTemplate(txManager);
+        this.memberRepository = memberRepository;
+    }
+
+    public void transferAccount(String fromId, String toId, int money) {
+        txTemplate.executeWithoutResult((status) -> {
+            try {
+                //비즈니스 로직
+                bizLogic(fromId, toId, money);
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
+        });
+    }
+}
+```
+
+- 트랜잭션 프록시 제공(AOP)
+- 프록시 객체는 트랜잭션 로직 처리
+- 물론 관련 객체는 자동으로 빈으로 등록
+- 프록시 호출 -> 프록시가 Service 로직 호출
+	- 트랜잭션 처리하는 객체와 비즈니스 로직 처리하는 객체(Service)
+```java
+public class MemberService {
+    private final MemberRepository memberRepository;
+
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
+    @Transactional
+    public void transferAccount(String fromId, String toId, int money) throws SQLException {
+        bizLogic(fromId, toId, money);
+    }
+}
+```
