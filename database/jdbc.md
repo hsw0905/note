@@ -79,6 +79,29 @@
   - 실무에서 이것으로 크게 성능 차이를 내거나 하진 않는다
   - JPA는 기본 DB 락 기능이 모두 지원되며 나아가 낙관적 락이라는 기술도 제공한다.
 
+```java
+@RequiredArgsConstructor
+public class MemberService {
+    private final DataSource dataSource;
+    private final MemberRepository memberRepository;
+
+    public void transferAccount(String fromId, String toId, int money) throws SQLException {
+        Connection connection = dataSource.getConnection();
+
+        try {
+            connection.setAutoCommit(false);//트랜잭션 시작
+            //비즈니스 로직
+            bizLogic(connection, fromId, toId, money);
+            connection.commit(); //성공시 커밋
+        } catch (Exception e) {
+            connection.rollback(); //실패시 롤백
+            throw new IllegalStateException(e);
+        } finally {
+            release(connection);
+        }
+    }
+}
+```
 ### Raw 한 JDBC 코드를 서비스 계층에 두면 불편한 점
 - 반복되는 커넥션 객체 얻는 로직, 특정 DB 기술에 종속
 - 반복되는 try-catch-finally 문 (트랜잭션 시작 - 롤백 - 커밋)
