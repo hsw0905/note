@@ -1,0 +1,27 @@
+- Database
+	- DBMS
+	- RDBMS
+	- DDL
+	- DML
+	- DCL
+	- SQL
+	- 데이터 모델
+		- 관계형 데이터 모델
+	- 튜플
+---
+- Relational Model
+	- 관계 데이터 모델 용어
+		- 속성
+		- 튜플
+		- 관계
+---
+- 관계 대수
+---
+- Entity-Relationship Model
+	- ERD란
+	- Entity
+	- 데이터베이스 정규화
+---
+- JDBC
+---
+- JdbcTemplate
