@@ -99,6 +99,7 @@ public class MemberDao {
   - 반복되는 자원 정리로 인한 Try-Catch 구문
   - DB마다 다른 예외처리(SQLException)
 - 스프링의 해결
+  - 템플릿 콜백 패턴을 사용하여 Try-Catch 반복 문제 해결
   - 데이터 접근 계층에 대해 일관된 예외 추상화를 제공해준다.
     - 특정 DB 기술에 종속적이지 않게 되었다.
 
