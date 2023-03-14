@@ -40,6 +40,7 @@
 	* [IoC](/spring/core/ioc.md)
 * [Spring Boot](/spring/springboot/springboot.md)
 * [ORM](/spring/orm/orm.md)
+	* [JPQL](/spring/orm/jpql.md)
 
 ## REST API
 * [Contents](/rest_api/subject_1.md)

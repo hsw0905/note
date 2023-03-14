@@ -1,0 +1,33 @@
+- ORM
+	- JPA
+	- Jakarta EE
+	- Entity
+---
+- Hibernate
+	- 데이터모델 / 객체모델
+	- entityManager
+	- 트랜잭션
+	- JPQL
+---
+- Aggregate Mapping
+- Value Object
+- JPA Annotation
+	- @Entity
+	- @Table
+	- @Id
+	- @Embeddable
+	- @Embedded
+	- @OneToMany
+	- @JoinColumn
+---
+- Relationship Mapping
+	- N + 1 problem
+	- DDD - Aggregate
+	- CascaseType.All
+	- orpahanRemoval
+	- Event Sourcing
+---
+- Spring Data JPA
+	- JPA Repository vs DDD의 Repository
+	- Spring AOP
+		- @Transactional
