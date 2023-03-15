@@ -113,10 +113,10 @@
 	- 속해있는 @Entity 객체를 영속화하게 되면 알아서 같이 저장된다.
 	- 즉, 영속성 전이(Cascade) + 고아 객체 제거 기능을 필수로 가진다.
 	- 컬렉션에 변경사항이 생기면 해당 엔티티와 연관된 모든 데이터를 삭제하고, 컬렉션에 있는 현재 값을 다시 저장한다.
-	-사용방법
-		- @ElementCollection 필요
-		- @CollectionTable(name = "xxx...", joinColumns = @JoinColumn(name = "xxx..")) 테이블 매핑
-		- 실무에서는 컬렉션 값타입 대신 일대다 관계를 고려할 것
+		- 사용방법
+			- @ElementCollection 필요
+			- @CollectionTable(name = "xxx...", joinColumns = @JoinColumn(name = "xxx..")) 테이블 매핑
+			- 실무에서는 컬렉션 값타입 대신 일대다 관계를 고려할 것
 
 ## 엔티티 매핑
 - 객체와 테이블 매핑
