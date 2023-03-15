@@ -178,6 +178,12 @@
 	- 주 테이블만 조회해도 대상 테이블에 데이터가 있는지 확인 가능하다.
 	- 값이 없으면 외래 키에 Null을 허용하게 된다.
 
+### 프록시와 즉시로딩 주의
+- 가급적 지연 로딩만 사용할 것 (즉시 로딩은 JPQL에서 N+1 문제를 일으킨다.)
+- @ManyToOne, @OneToOne은 기본이 즉시 로딩이다.
+	-> Lazy로 설정할 것
+- @OneToMany, @ManyToMany는 기본이 지연 로딩이다.
+
 ## 연관관계의 주인
 - 양방향 매핑
 	- mappedBy : 나는 xxx에 의해 관리받고 있다
@@ -227,9 +233,9 @@
 		- JpaRepository에서 제공해주진 않는다. JPQL로 작성해야 한다.
 		- 실제 로그를 확인하면 INNER_JOIN으로 호출된다.
 	- 단점
-		- FetchType을 사용할 수 없다.
-		- 데이터 호출 시점에 모든 연관 관계 데이터를 가져오다보니, FetchType Lazy가 무의미하다.
-		- 페이징 쿼리를 사용할 수 없다. (페이지 단위로 가져올 수 없다.)
+		- 페치 조인 대상에는 별칭을 줄 수 없다.
+		- 둘 이상의 컬렉션은 페치 조인 할 수 없다.
+		- 컬렉션을 페치 조인하면 페이징 API(setFirstResult, setMaxResult)를 사용할 수 없다.
 		- 카테지언 곱이 발생하게 되므로 중복 데이터가 존재할 수 있다.
 			- 중복된 데이터를 제거하려면?
 				- 컬렉션 Set 사용
@@ -243,3 +249,18 @@
 		- 중복된 데이터를 제거하려면?
 				- 컬렉션 Set 사용
 				- distinct
+---
+## Spring Data JPA
+![출처: https://hackmd.io/@ddubson/rkn-sR4wU](/spring/orm/images/spring_data_jpa.png)
+- Spring Data Common : Spring Data 프로젝트들의 공통 기능 제공
+- Spring Data JPA : Spring Data Common 기능 + JPA 관련 기능
+
+### JPA Repository vs DDD Repository
+- JPA Repository: Spring Data에서 사용되는 인터페이스
+- DDD Repository: 도메인 모델 계층과 구현 기술을 분리시켜 구현 기술에 종속적이지 않고 도메인에 집중할 수 있는 패턴에서 나온 용어
+	- 도메인 모델 계층 : 저장하는 방법에 대한 관심사
+	- 인프라스트럭처 계층 : 실제로 어떻게 저장하는지에 대한 관심사
+	- 인프라스트럭처 계층이 도메인 계층을 의존하도록 설계
+
+### 기타 DDD 관련 정리
+- [정리 링크](https://hsw0905.gitbook.io/note/backend/ddd)

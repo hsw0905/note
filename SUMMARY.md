@@ -25,6 +25,7 @@
 	* [Jackson-ObjectMapper](/backend/jackson.md)
 * [CORS](/backend/cors.md)
 * [Layered Architecture](/backend/layered_architechture.md)
+* [DDD](/backend/ddd.md)
 
 ## Java
 * [basic](/java/subject_1.md)
@@ -41,6 +42,7 @@
 * [Spring Boot](/spring/springboot/springboot.md)
 * [ORM](/spring/orm/orm.md)
 	* [JPQL](/spring/orm/jpql.md)
+	* [QueryDSL](/spring/orm/querydsl.md)
 
 ## REST API
 * [Contents](/rest_api/subject_1.md)
