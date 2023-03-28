@@ -114,3 +114,18 @@
 - 컬렉션 값 연관 경로
 	- 묵시적 내부조인(Inner Join) 발생 <- 실무에서는 사용하지 않는 것을 권장
 	- 컬렉션에서 객체 탐색 불가
+
+## 페치 조인
+- JPQL에서 성능 최적화를 위해 제공되는 기능
+- 연관된 엔티티나 컬렉션을 쿼리 한방에 조회하는 기능
+- join fetch 명령어 사용
+- 예시
+	- ```SQL
+		// JPQL
+		select m from Member m join fetch m.team
+
+		// -> SQL 결과
+		SELECT M.*, T.* FROM MEMBER M
+		INNER JOIN TEAM T ON M.TEAM_ID = T.ID
+		```
+- [N+1 문제 참고](https://hsw0905.gitbook.io/note/spring/orm)
