@@ -79,20 +79,20 @@
 
 ### 조인
 - 내부조인
-	- ```Java
-		"select m from Member m (inner) join m.team"
+	- ```SQL
+		select m from Member m (inner) join m.team
 		```
 - 외부조인
-	- ```Java
-		"select m from Member m left(outer) join m.team"
+	- ```SQL
+		select m from Member m left(outer) join m.team
 		```
 - 세타조인
-	- ```Java
-		"select count(m) from Member m, Team t where m.username = t.name"
+	- ```SQL
+		select count(m) from Member m, Team t where m.username = t.name
 		```
 - 조인 대상 필터링
-	- ```Java
-		"select m,t from Member m left join m.team t on t.name = 'abc'"
+	- ```SQL
+		select m,t from Member m left join m.team t on t.name = 'abc'
 		```
 
 ### 서브쿼리
