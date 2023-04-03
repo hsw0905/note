@@ -26,6 +26,7 @@
 * [CORS](/backend/cors.md)
 * [Layered Architecture](/backend/layered_architechture.md)
 * [DDD](/backend/ddd.md)
+* [SOLID](/backend/solid.md)
 
 ## Java
 * [basic](/java/subject_1.md)
