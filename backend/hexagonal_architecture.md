@@ -19,6 +19,7 @@
 	- Application이 다른 외부 요소와 분리되어 테스트하기 쉽고 재사용하기 쉬워진다.
 		- Application 입장에서는 UI 입력이나, MockMvc 입력이나 동일한 외부
 		- Application 입장에서는 Real DB나 Mock DB나 동일한 외부
+---
 ![출처: https://alistair.cockburn.us/hexagonal-architecture/](/backend/images/barn_door.png)
 
 ### Port
