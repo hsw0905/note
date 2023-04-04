@@ -177,12 +177,7 @@
 	- 주 테이블에 외래키 지정
 	- 주 테이블만 조회해도 대상 테이블에 데이터가 있는지 확인 가능하다.
 	- 값이 없으면 외래 키에 Null을 허용하게 된다.
-
-### 프록시와 즉시로딩 주의
-- 가급적 지연 로딩만 사용할 것 (즉시 로딩은 JPQL에서 N+1 문제를 일으킨다.)
-- @ManyToOne, @OneToOne은 기본이 즉시 로딩이다.
-	-> Lazy로 설정할 것
-- @OneToMany, @ManyToMany는 기본이 지연 로딩이다.
+---
 
 ## 연관관계의 주인
 - 양방향 매핑
@@ -227,18 +222,130 @@
 - 비즈니스 로직에 따라 Member 로딩 시 Team도 같이 가져오면 좋을텐데 !!
 - 아니, 특정 로직엔 Member만 가져오는게 더 이득인걸?
 - 이럴땐 어떻게 해결할까? --> 프록시!
+---
+## 상속 관계 매핑
+- 객체의 상속관계 구조와 DB의 슈퍼타입-서브타입 관계를 매핑
+- 슈퍼타입-서브타입 논리 모델을 실제 물리 모델로 구현하는 방법
+---
+![조인 전략](/spring/orm/images/join_stratagy.png)
+- 조인 전략 : 각각 테이블로 변환 (중요한 테이블, 복잡한 로직일 때)
+```Java
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn // DType 생성을 위해 필요, Default 로 서브타입 엔티티 이름이 들어간다.
+public abstract class Item {
+	@Id
+	@GeneratedValue
+	private Long id;
+	private String name;
+	...
+}
 
-### 프록시
+...
+@Entity
+@DiscriminatorValue("A") // <- 커스텀 구분 이름
+public class Album extends Item {
+	...
+}
+```
+- 장점
+	- 테이블이 정규화 되어있음
+	- 외래 키 참조 무결성 제약조건 활용 가능
+	- 저장공간 효율화
+- 단점
+	- 조회시 조인 사용, 성능 저하
+	- 조회 쿼리 복잡
+	- Insert 쿼리 2번 호출
+---
+![단일 테이블 전략](/spring/orm/images/single_stratagy.png)
+- 단일 테이블 전략 : 통합 테이블 하나로 변환 (확장될 일이 없을 때)
+```Java
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) //<- default 전략
+// @DiscriminatorColumn 어노테이션 없어도 테이블에 DType 생긴다.
+public abstract class Item {
+	@Id
+	@GeneratedValue
+	private Long id;
+	private String name;
+	...
+}
+```
+- 장점
+	- 조인이 없으므로 조회 성능 빠름
+	- 조회 쿼리 단순
+- 단점
+	- 자식 엔티티가 매핑한 컬럼은 null값 허용
+	- 단일 테이블에 모든 것을 저장 -> 테이블이 커질 수 있다. (성능이 오히려 저하 우려)
+---
+- 구현 클래스마다 테이블 만들기 : 서브타입 테이블로 변환 (추천 X)
+
+### @MappedSuperClass
+- 엔티티간 공통 속성을 상속받아 엔티티를 만드는 경우 사용
+- 매핑 정보만 받는 슈퍼클래스, entityManager -> 조회, 검색 안된다.
+- 직접 객체를 생성해서 사용할 일이 없다 -> 추상클래스 권장
+```Java
+@MappedSuperClass
+public abstract class BaseEntity {
+	...
+}
+```
+---
+## 프록시
 ![프록시 동작방식](/spring/orm/images/proxy.png)
 - 프록시를 알려면 entityManager.find() vs entityManager.getReference()의 차이를 이해해야 한다.
 	- entityManager.find() : DB를 통해 실제 엔티티를 조회한다.
 	- entityManager.getReference() : DB 조회를 미루는 가짜(프록시) 엔티티 객체를 조회한다.
+		- getReference() 호출 시점엔 DB의 쿼리가 안 나간다.
+		- getReference() 호출 결과 객체는 프록시 객체이다. (예: class ...Member$HibernateProxy...)
+		- 결과값을 직접 조회하는 시점에 쿼리가 나간다.
 - 프록시 객체는 하이버네이트가 내부적으로 진짜 Entity를 상속받아 만들어진다. 그래서 진짜 Entity 객체와 겉모습이 동일하다.
 	- 사용하는 입장에서, 가짜인지 진짜 객체인지 구분하지 않고 사용하면 된다.
 - 그렇다면 프록시 객체는 무슨 일을 하냐?
 	- 프록시 객체는 실제 객체의 참조(target)를 가지고 있다.
-	- 이 객체를 호출하면 프록시 객체는 실제 엔티티 객체의 메소드를 호출한다.
+	- 이 객체를 호출하면 프록시 객체는 실제 엔티티 객체의 메소드를 호출한다. (실제 객체로 교체되는게 아니다!!)
+		- 타입 체크할때 주의해야할 사항 : == 비교가 아니라 instance of 를 사용해야 한다.
+			- JPA 엔티티를 비교할 땐 프록시를 사용하는지 안하는지 모르기 때문에 왠만하면 instance of를 사용할 것
 - 프록시 객체는 처음 사용할 때 한번만 초기화 하며, 초기화 방식은 위 이미지 참조
+	- 내부적으로 EntityManager에게 초기화 요청한다는 점이 포인트
+	- 두 번째 호출할 때부터는 EntityManager에 이미 실제 엔티티가 있으므로, getReference()를 호출하면 실제 객체가 나온다.(프록시X)
+	- 준영속 상태일때 프록시를 초기화하면 Exception 발생하므로 주의
+
+### 지연 로딩
+```Java
+@Entity
+public class Member {
+    @Id
+    @GeneratedValue
+    private Long id;
+    ...
+    @ManyToone(fetch = FetchType.LAZY)  // <-- 지연로딩 : entityManager.find().. 조회 시 프록시로 조회한다.
+		@JoinColumn(name = "teams_id")
+		private Team team;
+}
+...
+team.getName() // <-- 실제 객체 사용 시 그때서야 쿼리 나가고 초기화된다.
+```
+
+### 즉시 로딩
+```Java
+@Entity
+public class Member {
+    @Id
+    @GeneratedValue
+    private Long id;
+    ...
+    @ManyToone(fetch = FetchType.EAGER) // <-- 즉시로딩 : 프록시가 아니라 진짜 객체를 한 번에(left outer join) 모두 조회
+		@JoinColumn(name = "teams_id")
+		private Team team;
+}
+...
+```
+### 프록시와 즉시로딩 주의
+- 가급적 지연 로딩만 사용할 것 (즉시 로딩은 JPQL에서 N+1 문제를 일으킨다.)
+- @ManyToOne, @OneToOne은 기본이 즉시 로딩이다.
+	-> Lazy로 설정할 것
+- @OneToMany, @ManyToMany는 기본이 지연 로딩이다.
 
 ### 영속성 전이 : CASCADE
 - 특정 엔티티를 영속 상태로 만들면서, 연관된 엔티티도 함께 영속 상태로 만들고 싶을 때 사용
