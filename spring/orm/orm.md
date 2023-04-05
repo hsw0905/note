@@ -319,7 +319,7 @@ public class Member {
     @GeneratedValue
     private Long id;
     ...
-    @ManyToone(fetch = FetchType.LAZY)  // <-- 지연로딩 : entityManager.find().. 조회 시 프록시로 조회한다.
+    @ManyToOne(fetch = FetchType.LAZY)  // <-- 지연로딩 : entityManager.find().. 조회 시 프록시로 조회한다.
 		@JoinColumn(name = "teams_id")
 		private Team team;
 }
@@ -335,7 +335,7 @@ public class Member {
     @GeneratedValue
     private Long id;
     ...
-    @ManyToone(fetch = FetchType.EAGER) // <-- 즉시로딩 : 프록시가 아니라 진짜 객체를 한 번에(left outer join) 모두 조회
+    @ManyToOne(fetch = FetchType.EAGER) // <-- 즉시로딩 : 프록시가 아니라 진짜 객체를 한 번에(left outer join) 모두 조회
 		@JoinColumn(name = "teams_id")
 		private Team team;
 }

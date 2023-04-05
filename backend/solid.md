@@ -96,3 +96,10 @@
 - 인터페이스에 의존하면서 구체적인 인스턴스를 활용하려면?
 	- DI(Dependency Injection)가 필요하다.
 	- Spring을 사용하면 아주 쉽게 DI와 DIP를 활용할 수 있다.
+
+
+## Hexagonal Architecture
+- [링크](https://hsw0905.gitbook.io/note/back-end/hexagonal_architecture)
+
+## 우아한객체지향 - 조영호님
+- [링크](https://hsw0905.gitbook.io/note/seminar/%EC%9A%B0%EC%95%84%ED%95%9C%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5)
