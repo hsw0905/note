@@ -61,4 +61,4 @@
 * [Unit Test](/test/unit_test.md)
 
 ## Seminar
-* [우아한객체지향](/seminar/%EC%9A%B0%EC%95%84%ED%95%9C%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%EC%A1%B0%EC%98%81%ED%98%B8%EB%8B%98.md)
+* [woowahanoop](/seminar/%EC%9A%B0%EC%95%84%ED%95%9C%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%EC%A1%B0%EC%98%81%ED%98%B8%EB%8B%98.md)

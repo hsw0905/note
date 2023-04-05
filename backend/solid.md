@@ -102,4 +102,4 @@
 - [링크](https://hsw0905.gitbook.io/note/back-end/hexagonal_architecture)
 
 ## 우아한객체지향 - 조영호님
-- [링크](https://hsw0905.gitbook.io/note/seminar/%EC%9A%B0%EC%95%84%ED%95%9C%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5)
+- [링크](https://hsw0905.gitbook.io/note/seminar/woowahanoop)
