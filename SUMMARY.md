@@ -45,6 +45,8 @@
 * [ORM](/spring/orm/orm.md)
 	* [JPQL](/spring/orm/jpql.md)
 	* [QueryDSL](/spring/orm/querydsl.md)
+* [Security](/spring/security/spring_security.md)
+* [Web MVC](/spring/webmvc/dispatcher.md)
 
 ## REST API
 * [Contents](/rest_api/subject_1.md)
