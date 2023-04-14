@@ -59,3 +59,119 @@
 ## Interceptor vs Filter (vs AOP)
 ![출처 : https://velog.io/@_koiil/Filter-Interceptor-AOP](/spring/security/images/filter.png)
 - [Dispatcher Servlet?](/spring/webmvc/dispatcher.md)
+- Filter
+	- Servlet Container에 의해 관리
+		- 시점 : Dispatcher Servlet에 요청이 전달되기 전, 전달된 후
+		- 기능 : url 패턴에 맞는 요청에 대해서 부가작업을 처리할 수 있는 기능을 제공
+		- 용도 : 전역적으로 공통된 보안 및 인증/인가 관련 작업, 이미지/데이터 압축, 인코딩
+	- 스프링 밖에서 처리되지만 스프링 빈으로 등록 가능
+	- 개발자가 Request, Response 객체를 다른 객체로 바꿔 제공할 수 있다.
+- Interceptor
+	- Spring Container에 의해 관리
+		- 시점 : Dispatcher Servlet이 핸들러 매핑을 통해 컨트롤러를 호출하기 전, 호출한 후
+		- 기능 : Request, Response를 참조
+		- 용도 : API 호출에 대한 로깅, Controller로 넘겨주는 정보를 가공
+	- 스프링의 모든 Bean 객체에 접근할 수 있다.
+- AOP(참고)
+	- 시점 : 대상 메소드가 호출되기 전, 호출된 후
+	- 기능 : 파라미터, 어노테이션 등 다양한 방법으로 대상 메소드를 지정한다.
+	- 용도 : 로깅, 트랜잭션, 에러 처리 등 비즈니스 로직 메소드의 호출 전/후로 중복되는 부분을 줄이기 위해 사용
+
+### 암호화와 복호화
+- 암호화 종류
+	- 단방향
+		- 용도 : 신원 증명, 인증 과정
+		- 복호화 불가능
+		- Hashing Algorithm
+			- 완벽하게 안전하지 않음 (무차별 대입 공격, 레인보우 테이블 공격)
+			- 이에 대응하고자 솔트 기법이 나오게 됨
+				- 무작위 데이터를 해시 함수 입력값에 더해서 더 복잡한 출력값을 생성한다.
+	- 비밀키
+		- 비밀키를 사용하여 암호화 / 복호화 가능
+		- 송신자와 수신자 모두 암호화 키를 알고 있어야 한다.
+	- 공개키
+		- 공개키 + 개인키 사용
+		- 개인키를 가진 사람만 복호화 가능
+
+### Identifier(식별자)
+- 어떤 대상을 유일하게 구별할 수 있는 이름
+- 예시
+	- URL, ISBN, IP주소, DB key
+
+## OAuth2
+- [정리 링크](/backend/oauth2.md)
+
+### Bearer Token
+- HTTP Header
+	- Authorization: Bearer "token hash value"
+	-                <Type>    <Credentials>
+- JWT 혹은 OAuth에 대한 토큰을 사용한다.(RFC 6750)
+
+## SecurityFilterChain
+![출처 : https://docs.spring.io/spring-security/reference/servlet/architecture.html](/spring/security/images/securityfilterchain.png)
+- 클라이언트로부터 Request가 서버에 온다.
+- Spring Containter에 Request가 도착하기 전 Filter에 의해 여러 기능이 처리된다.
+- DelegatingFilterProxy : Spring Container에 있는 FilterChainProxy에게 Request를 위임한다.(즉, Request를 Spring Container에서 처리할 수 있게 된다.)
+- FilterChainProxy는 SecurityFilterChain 인터페이스의 구현체 리스트를 가지고 있다. (다수의 Security Filter)
+- Request에 매핑되는 Filter들을 모두 통과하면 DispatcherServlet으로 위임이 성공한다.
+- 이후 DispatcherServlet은 적절한 Controller를 호출한다.
+
+### @EnableWebSecurity
+- Spring Boot가 Spring Security 자동 설정을 해준다.
+- 모든 요청에 대해 401 응답을 내보내던 기존 설정에서 자동 설정으로 403을 내보내게 된다.
+- ```Java
+	@Configuration
+	@EnableWebSecurity
+	public class WebSecurityConfig {
+	    private final TokenAuthenticationFilter tokenAuthenticationFilter;
+
+	    public WebSecurityConfig(TokenAuthenticationFilter tokenAuthenticationFilter) {
+	    // 사용자 정의 필터
+	    this.tokenAuthenticationFilter = tokenAuthenticationFilter;
+	  }
+
+	    @Bean
+	    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	        http.addFilterBefore(tokenAuthenticationFilter, BasicAuthenticationFilter.class);
+
+	        http.authorizeHttpRequests().anyRequest().authenticated();
+	    return http.build();
+	    }
+	}
+	```
+
+## Filter vs OncePerRequestFilter
+- ```Java
+	public interface Filter {
+	    public default void init(FilterConfig filterConfig) throws ServletException {}
+
+	    public void doFilter(ServletRequest request, ServletResponse response,
+	          FilterChain chain) throws IOException, ServletException;
+	    public default void destroy() {}
+	}
+
+	...
+
+	public abstract class OncePerRequestFilter extends GenericFilterBean {
+	    ...
+	    protected abstract void doFilterInternal(
+			HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException;
+	    ...
+	}
+	```
+- GenericFilterBean : Servlet의 Filter를 조금 더 확장하여 스프링에서 제공하는 필터이다. 이 필터 덕분에 기존 Filter에서 얻어올 수 없던 정보인 Spring 설정 정보를 가져올 수 있게 되었다.
+- Filter, GenericFilterBean 두 필터 모두 매 Servlet 마다 호출이 된다.
+	- Servlet은 다른 Servlet으로 dispatch 되는 경우가 있는데, 이 때 또 다시 filter chain을 거치게 된다. -> 필터가 두번 실행되는 현상
+- OncePerRequestFilter : 이 추상 클래스를 구현한 필터는 Request 하나 당 딱 한번만 실행된다. 즉, 모든 서블릿에 일관된 요청을 처리하기 위해 만들어진 필터이다.
+
+### Filter Chain
+- Request 하나가 거치게 되는 필터들의 모음
+- 각 필터는 서로 연쇄적으로 작동한다.
+
+### Security Context
+![출처 : https://docs.spring.io/spring-security/reference/servlet/authentication/architecture.html](/spring/security/images/securitycontextholder.png)
+- SecurityContextHolder로부터 얻어진다.
+- SecurityContextHolder는 ThreadLocal을 사용하기 때문에 SecurityContext는 항상 같은 스레드 안에서 이용 가능하다.
+- 현재 스레드의 보안 정보를 담고 있고, 이 컨텍스트는 SecuritContextHolder에 저장된다.
+- Authentication 객체를 가지고 있다.
