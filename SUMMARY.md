@@ -28,6 +28,7 @@
 * [DDD](/backend/ddd.md)
 * [SOLID](/backend/solid.md)
 * [Hexagonal Architecture](/backend/hexagonal_architecture.md)
+* [OAuth 2.0](/backend/oauth2.md)
 
 ## Java
 * [basic](/java/subject_1.md)
