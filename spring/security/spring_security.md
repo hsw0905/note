@@ -262,9 +262,9 @@
 	- 공개키가 털린다 해도 개인키가 없으면 데이터를 복호화 할 수 없다.
 	- 대칭키 암호화 방식에 비해 속도가 느리다.
 
-	### @Secured
-	- 지정된 역할 중 하나 이상 해당되는 유저만 메소드에 접근 가능
-	- ```Java
-		@Secured("ROLE_ADMIN") // 어드민 역할을 가진 유저만 실행할 수 있다.
-		public String getUsername() {...}
-		```
+### @Secured
+- 지정된 역할 중 하나 이상 해당되는 유저만 메소드에 접근 가능
+- ```Java
+	@Secured("ROLE_ADMIN") // 어드민 역할을 가진 유저만 실행할 수 있다.
+	public String getUsername() {...}
+	```
