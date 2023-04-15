@@ -29,6 +29,7 @@
 * [SOLID](/backend/solid.md)
 * [Hexagonal Architecture](/backend/hexagonal_architecture.md)
 * [OAuth 2.0](/backend/oauth2.md)
+* [JWT](/backend/jwt.md)
 
 ## Java
 * [basic](/java/subject_1.md)

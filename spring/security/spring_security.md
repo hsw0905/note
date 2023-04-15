@@ -175,3 +175,96 @@
 - SecurityContextHolder는 ThreadLocal을 사용하기 때문에 SecurityContext는 항상 같은 스레드 안에서 이용 가능하다.
 - 현재 스레드의 보안 정보를 담고 있고, 이 컨텍스트는 SecuritContextHolder에 저장된다.
 - Authentication 객체를 가지고 있다.
+
+### CSRF(Cross Site Request Forgery)
+- 사이트 간 요청 위조
+- 사용자가 자신의 의지와 무관하게 공격자가 의도한 행위(수정, 삭제, 등록)를 웹 사이트에 요청하게 하는 공격
+
+
+### Java Date vs LocalDateTime
+- Date
+	- 구버전 클래스
+	- 특정 시점을 날짜가 아닌 밀리초 단위로 표현한다.
+	- 1900년을 기준으로 오프셋, 0부터 시작하는 달 인덱스
+	- 안씀
+- LocalDateTime
+	- Java 8 이상
+	- LocalDate와 LocalTime 두 클래스를 갖는 복합 클래스
+	- 날짜와 시간 모두 표현 가능
+	- ```Java
+		LocalDate date = LocalDate.parse("2023-04-15");
+		LocalTime time = LocalTime.parse("14:40:10");
+
+		LocalDateTime dt = LocalDateTime.of(2023, 4, 15, 14, 39, 10)
+		LocalDateTime dt2 = LocalDateTime.of(date, time);
+		LocalDateTime dt3 = date.atTime(14,41,20);
+		LocalDateTime dt4 = time.atDate(date);
+		```
+
+### Epoch Time
+- Unix와 POSIX 등 시스템에서 날짜, 시간의 흐름을 표현할 때 기준으로 삼는 시간
+- 1970년 1월 1일 0시
+- (00:00:00 UTC on January 1, 1970)
+	- 이 때부터 특정 시점까지 몇 초(Second)가 지났는가
+	- 1970년 1월 1일 자정 이전 시점은 음수 초 단위로 표기
+
+
+## PasswordEncoder (Spring Security)
+- text를 암호화하는 인터페이스(단방향 암호화)
+- 구현체로 여러 암호화 알고리즘이 있다.
+	- 예시(매번 임의의 Salt를 생성하여 인코딩)
+		- BcryptPasswordEncoder
+		- Argon2PasswordEncoder
+		- Pbkdf2PasswordEncoder
+		- SCryptPasswordEncoder
+- Argon2 : 2015년 암호 해싱 대회 우승
+	- 암호를 해싱하는데 걸리는 시간, 소요되는 메모리 양을 설정할 수 있다.
+	- 목적에 맞게 파라미터 변경으로 적용 가능
+	- 종류
+		- Argon2d
+		- Argon2i
+		- Argon2id
+			- Password hashing, Password 기반 키 유도에 적합
+
+### TSID(Time-Sorted Unique Identifiers)
+- 생성 시간순 정렬 가능
+- 13 char로 저장 가능
+- 64 bit integer로 저장 가능
+- UUID, ULID, KSUID보다 짧다.
+
+## JWT(Json Web Token)
+- [정리 링크](/backend/jwt.md)
+
+## Claims-based identity
+- 유니크한 식별자
+- 특정 유저나 Application, computer, 기타 다른 entity를 나타낸다.
+- 이 식별자로 무엇이 가능한가?
+	- 별도의 자격증명 암호를 여러번 인증할 필요 없이 다양한 리소스에 접근하는 것을 가능하게 한다.
+		- 예시
+			- Application
+			- 네트워크 리소스
+
+### 대칭키 암호화 vs 공개키 암호화
+- 대칭키 암호화
+	- 암호화, 복호화에 필요한 키가 동일하다.
+	- 암호화 속도가 빠르다.
+	- 안전한 키 교환 방식이 요구된다. 키를 아는 사람이 많아질수록 키 관리가 어려워진다.
+- 공개키 암호화
+	- 송 수신자가 모두 한쌍의 공개키, 개인키를 가지고 있다.
+	- 공개키 : 모든 사람이 접근 가능한 키
+	- 개인키 : 각 사용자만이 가지고 있는 키
+	- 예시
+		- A가 B에게 데이터를 암호화해서 보내려고 한다.
+			- A는 B의 공개키로 데이터를 암호화하여 보낸다.
+			- B는 본인의 개인키로 해당 데이터를 복호화해서 본다.
+			- 즉, 암호화된 데이터는 B의 공개키에 대응되는 개인키를 갖고 있는 B만 볼 수 있다.
+	- 공개키는 공개되어 있기 때문에 따로 키교환이나 분배를 할 필요가 없다.
+	- 공개키가 털린다 해도 개인키가 없으면 데이터를 복호화 할 수 없다.
+	- 대칭키 암호화 방식에 비해 속도가 느리다.
+
+	### @Secured
+	- 지정된 역할 중 하나 이상 해당되는 유저만 메소드에 접근 가능
+	- ```Java
+		@Secured("ROLE_ADMIN") // 어드민 역할을 가진 유저만 실행할 수 있다.
+		public String getUsername() {...}
+		```
