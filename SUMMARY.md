@@ -67,3 +67,6 @@
 
 ## Seminar
 * [WoowahanOOP](/seminar/woowahanoop.md)
+
+## Book
+* [DDD distilled](/book/ddd_distilled.md)
