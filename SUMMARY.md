@@ -30,6 +30,7 @@
 * [Hexagonal Architecture](/backend/hexagonal_architecture.md)
 * [OAuth 2.0](/backend/oauth2.md)
 * [JWT](/backend/jwt.md)
+* [CQRS](/backend/cqrs.md)
 
 ## Java
 * [basic](/java/subject_1.md)
